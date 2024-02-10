@@ -1,1 +1,65 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class Game {
+
+    public static void main(String args[]) {
+
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+
+        int min_range = 1;
+        int max_range = 100;
+        int max_attempts = 10;
+        int score = 0;
+
+        System.out.println("Welcome to the Number Guessing Game '_' ");
+        System.out.println("Guess a number between " + min_range + " and " + max_range);
+
+        boolean play_again = true;
+
+        while (play_again) {
+
+            int target_num = random.nextInt(max_range - min_range + 1) + min_range;
+            int attempts = 0;
+            boolean guessedCorrectly = false;
+
+            while (attempts < max_attempts && !guessedCorrectly) {
+
+                System.out.println("Enter your guess : ");
+
+                int user_guess = scanner.nextInt();
+                scanner.nextLine();
+
+                if (user_guess == target_num) {
+                    System.out.println("Congratulations You guessed the correct number |-_-|");
+                    guessedCorrectly = true;
+                    score += max_attempts - attempts;
+                } else if (user_guess < target_num) {
+                    System.out.println("Too low, try again");
+                } else {
+                    System.out.println("Too high, try again");
+                }
+
+                attempts++;
+            }
+
+            if (!guessedCorrectly) {
+                System.out.println("Sorry, you've run out of attempts. The correct number was: " + target_num);
+            }
+
+            System.out.println("Your correct score: " + score);
+            System.out.println("Do you want to try again? (Yes/No): ");
+            String play_againInput = scanner.nextLine().toLowerCase();
+
+            if (!play_againInput.equals("yes")) {
+                play_again = false;
+            }
+        }
+
+        System.out.println("Thanks for playing and your final score: " + score);
+        scanner.close();
+
+    }
+}
 
